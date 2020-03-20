@@ -1,4 +1,33 @@
+.container {
+  display: flex;
+  margin-top: 10px;
+}
+.container__favorites-list {
+  border: 1px solid yellow;
+  width: 30%;
+}
+.container__shows {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 70%;
+  justify-items: center;
+  row-gap: 20px;
+}
+.container__shows-show {
+  background-color: rgb(102, 153, 211);
+  width: 140px;
+  text-align: center;
+  cursor: pointer;
+}
 .image-style {
   height: 150px;
   width: 100px;
+  padding-top: 10px;
+}
+.container__shows-show--favorite .container__shows-show {
+  background-color: red;
+}
+
+.container__shows-show--favorite .container__shows-show--title {
+  color: white;
 }

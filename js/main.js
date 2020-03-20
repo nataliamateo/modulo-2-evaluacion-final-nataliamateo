@@ -8,7 +8,7 @@ btn.addEventListener("click", getDataApi);
 
 // que escuche el botón
 
-// función que tome los datos del servidor con el valor del input
+//DATOS DE LA API CON EL VALOR DEL INPUT
 function getDataApi() {
   const inputValue = document.querySelector(".js-input").value;
   fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
@@ -30,27 +30,63 @@ function getDataApi() {
         shows.push(filmsDataObject);
       }
       paintShows();
-      console.log(shows);
     });
 }
 
+// PINTAR LA LISTA DE LAS SERIE
 const showsElement = document.querySelector(".js-container-shows");
 const paintShows = () => {
   let htmlCode = "";
   for (const show of shows) {
-    htmlCode += `<div class="container_shows-show" id="${show.id}">`;
+    // if (isFavorite === true {
+    //   htmlCode += `<div class="container__shows-show container__shows-show--favorite" id="${show.id}">`;
+    //     } else {
+    //       htmlCode += `<div class="container__shows-show" id="${show.id}">`;
+    //     }
+    htmlCode += `<div class="container__shows-show " id="${show.id}">`;
     htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
-    htmlCode += `<h3>${show.name}</h3>`;
+    htmlCode += `<h3 class="container__shows-show--title">${show.name}</h3>`;
     htmlCode += `</div>`;
   }
   showsElement.innerHTML = htmlCode;
 };
-// función que pinta los datos de la API
 
-function paintFavoriteData() {}
-// función que pinte los datos de la lista de favorito
-function favouriteList() {}
-// un función que añada o quite de la lista de favoritos
+//PINTAR LA LISTA DE FAVORITOS
+const favouriteElement = document.querySelector(".container__favorites-list");
+const paintFavoriteShows = () => {
+  let favoriteHtmlCode = "";
+  for (const show of shows) {
+    htmlCode += `<ul>`;
+    htmlCode += `<li id="${show.id}">`;
+    htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
+    htmlCode += `<h3>${show.name}</h3>`;
+    htmlCode += `</li>`;
+    htmlCode += `</ul>`;
+  }
+  favouriteElement.innerHTML = favoriteHtmlCode;
+};
 
-function setInLocalStorage() {}
-function getFromLocalStorage() {}
+// AÑADIR A FAVORITOS
+function favouriteList(ev) {
+  console.log(ev.currentTarget);
+  // const clickedId = ev.currentTarget.id;
+  // const isFavorite = favoritesShows(clickedId);
+  // if (isFavorite === false) {
+  //   favoritesShows.push(ev.currentTarget.id);
+  // } else {
+  //   favoritesShows.splice(favoritesShows(clickedId), 1);
+  // }
+  // paintFavoriteShows();
+  // listenClickFavShow();
+}
+
+// ESCUCHAR EL CLICK DEL DIV DEL SHOW
+const listenClickFavShow = () => {
+  const showsItems = document.querySelectorAll(".container__shows-show");
+  for (const showsItem of showsItems) {
+    showsItem.addEventListener("click", favouriteList);
+  }
+};
+
+// function setInLocalStorage() {}
+// function getFromLocalStorage() {}
