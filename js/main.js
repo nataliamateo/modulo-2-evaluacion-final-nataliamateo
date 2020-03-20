@@ -34,21 +34,38 @@ function getDataApi() {
 }
 
 // PINTAR LA LISTA DE LAS SERIE
-const showsElement = document.querySelector(".js-container-shows");
+const showsElement = document.querySelector(".js-container-allshows");
 const paintShows = () => {
   let htmlCode = "";
   for (const show of shows) {
-    // if (isFavorite === true {
+    // if (isFavorite === true) {
     //   htmlCode += `<div class="container__shows-show container__shows-show--favorite" id="${show.id}">`;
-    //     } else {
-    //       htmlCode += `<div class="container__shows-show" id="${show.id}">`;
-    //     }
-    htmlCode += `<div class="container__shows-show " id="${show.id}">`;
+    // } else {
+    //   htmlCode += `<div class="container__shows-show" id="${show.id}">`;
+    // }
+    htmlCode += `<div class="js-container-show container__shows-show " id="${show.id}">`;
     htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
     htmlCode += `<h3 class="container__shows-show--title">${show.name}</h3>`;
     htmlCode += `</div>`;
   }
   showsElement.innerHTML = htmlCode;
+  listenClickFavShow();
+};
+
+// AÑADIR A FAVORITOS
+function favouriteList(ev) {
+  // guardar el valor del id en una constante
+  const clickedId = ev.currentTarget.id;
+  // const isFavorite = favoritesShows(clickedId);
+  console.log(clickedId, shows);
+}
+
+// ESCUCHAR EL CLICK DEL DIV DEL SHOW
+const listenClickFavShow = () => {
+  const showsItems = document.querySelectorAll(".js-container-show");
+  for (const showsItem of showsItems) {
+    showsItem.addEventListener("click", favouriteList);
+  }
 };
 
 //PINTAR LA LISTA DE FAVORITOS
@@ -64,28 +81,6 @@ const paintFavoriteShows = () => {
     htmlCode += `</ul>`;
   }
   favouriteElement.innerHTML = favoriteHtmlCode;
-};
-
-// AÑADIR A FAVORITOS
-function favouriteList(ev) {
-  console.log(ev.currentTarget);
-  // const clickedId = ev.currentTarget.id;
-  // const isFavorite = favoritesShows(clickedId);
-  // if (isFavorite === false) {
-  //   favoritesShows.push(ev.currentTarget.id);
-  // } else {
-  //   favoritesShows.splice(favoritesShows(clickedId), 1);
-  // }
-  // paintFavoriteShows();
-  // listenClickFavShow();
-}
-
-// ESCUCHAR EL CLICK DEL DIV DEL SHOW
-const listenClickFavShow = () => {
-  const showsItems = document.querySelectorAll(".container__shows-show");
-  for (const showsItem of showsItems) {
-    showsItem.addEventListener("click", favouriteList);
-  }
 };
 
 // function setInLocalStorage() {}
