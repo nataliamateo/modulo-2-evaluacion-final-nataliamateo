@@ -7,16 +7,16 @@
     <title>Document</title>
   </head>
   <body>
-    <section>
-      <h1>Buscador de series</h1>
+    <section class="header">
+      <h1 class="header__title">Buscador de series</h1>
       <form>
         <label for="shows"></label>
-        <input class="js-input" placeholder="Busca tus series" type="text" id="films-shows" value="the big" required />
-        <input class="js-button" type="button" value="Search" />
+        <input class="js-input header__input" placeholder="Busca tus series" type="text" value="the big" id="films-shows" required />
+        <input class="js-button header__inputbtn" type="button" value="Search" />
       </form>
     </section>
     <section class="container">
-      <div class="container__favorites-list"></div>
+      <div class="container__favorites"></div>
       <div class="js-container-allshows container__shows"></div>
     </section>
     <script type="text/javascript" src="js/main.js"></script>

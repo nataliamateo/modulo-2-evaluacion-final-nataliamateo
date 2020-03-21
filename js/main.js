@@ -44,9 +44,9 @@ const paintShows = () => {
     // } else {
     //   htmlCode += `<div class=""js-container-show container__shows-show" id="${show.id}">`;
     // }
-    htmlCode += `<div class="js-container-show container__shows-show " id="${show.id}">`;
-    htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
-    htmlCode += `<h3 class="container__shows-show--title">${show.name}</h3>`;
+    htmlCode += `<div class="js-container-show container__shows__show " id="${show.id}">`;
+    htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="container__shows__show--image-style">`;
+    htmlCode += `<h3 class="container__shows__show--title">${show.name}</h3>`;
     htmlCode += `</div>`;
   }
   showsElement.innerHTML = htmlCode;
@@ -94,15 +94,15 @@ const listenClickFavShow = () => {
 };
 
 //PINTAR LA LISTA DE FAVORITOS
-const favouriteElement = document.querySelector(".container__favorites-list");
+const favouriteElement = document.querySelector(".container__favorites");
 const paintFavoriteShows = () => {
   let favoriteHtmlCode = "";
-  favoriteHtmlCode += `<h2>Mis series favoritas</h2>`;
+  favoriteHtmlCode += `<h2 class="container__favorites--title">Mis series favoritas</h2>`;
   for (const show of favoritesShows) {
-    favoriteHtmlCode += `<ul>`;
-    favoriteHtmlCode += `<li id="${show.id}">`;
-    favoriteHtmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
-    favoriteHtmlCode += `<h3>${show.name}</h3>`;
+    favoriteHtmlCode += `<ul class="container__favorites--shows">`;
+    favoriteHtmlCode += `<li class="list-style" id="${show.id}">`;
+    favoriteHtmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="list-style__image">`;
+    favoriteHtmlCode += `<h3 class="list-style__title">${show.name}</h3>`;
     favoriteHtmlCode += `</li>`;
     favoriteHtmlCode += `</ul>`;
   }
