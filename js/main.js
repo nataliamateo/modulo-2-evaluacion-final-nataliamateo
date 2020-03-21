@@ -3,10 +3,11 @@
 let shows = [];
 let favoritesShows = [];
 
-const btn = document.querySelector(".js-button");
-btn.addEventListener("click", getDataApi);
-
-// que escuche el botón
+// Función que escucha el botón Search
+const listenSearchBtn = () => {
+  const btn = document.querySelector(".js-button");
+  btn.addEventListener("click", getDataApi);
+};
 
 //DATOS DE LA API CON EL VALOR DEL INPUT
 function getDataApi() {
@@ -38,10 +39,10 @@ const showsElement = document.querySelector(".js-container-allshows");
 const paintShows = () => {
   let htmlCode = "";
   for (const show of shows) {
-    // if (isFavorite === true) {
-    //   htmlCode += `<div class="container__shows-show container__shows-show--favorite" id="${show.id}">`;
+    // if (true) {
+    //   htmlCode += `<div class=""js-container-show container__shows-show container__shows-show--favorite" id="${show.id}">`;
     // } else {
-    //   htmlCode += `<div class="container__shows-show" id="${show.id}">`;
+    //   htmlCode += `<div class=""js-container-show container__shows-show" id="${show.id}">`;
     // }
     htmlCode += `<div class="js-container-show container__shows-show " id="${show.id}">`;
     htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
@@ -55,9 +56,33 @@ const paintShows = () => {
 // AÑADIR A FAVORITOS
 function favouriteList(ev) {
   // guardar el valor del id en una constante
-  const clickedId = ev.currentTarget.id;
-  // const isFavorite = favoritesShows(clickedId);
-  console.log(clickedId, shows);
+  const clickedId = parseInt(ev.currentTarget.id);
+  // buscar en la lista de favoritos comparando ids
+  let foundFavShow = undefined;
+  for (const favoritesShow of favoritesShows) {
+    if (favoritesShow.id === clickedId) {
+      foundFavShow = favoritesShow;
+    }
+  }
+  // si la serie es undefined porque no esta en la lista me lo añades
+  if (foundFavShow === undefined) {
+    // encontrar el elemento clickado y si es el mismo lo mete en la variable, para ello comparamos el atributo id que es hijo directo de la array shows
+    let foundShow = shows.find(show => show.id === clickedId);
+    // añadirlo a la array de favoritos
+    // como queremos añadir todos los datos no necesitamos crear un nuevo objeto definido
+    favoritesShows.push(foundShow);
+  } else {
+    // como quiero eliminar una serie necesito saber que posición ocupa en la lista teniendo en cuenta el id.
+    let indexShowToDelete = 0;
+    for (let i = 0; i < favoritesShows.length; i++) {
+      if (favoritesShows[i].id === clickedId) {
+        indexShowToDelete = i;
+      }
+    }
+    favoritesShows.splice(indexShowToDelete, 1);
+  }
+  setInLocalStorage();
+  paintFavoriteShows();
 }
 
 // ESCUCHAR EL CLICK DEL DIV DEL SHOW
@@ -72,16 +97,32 @@ const listenClickFavShow = () => {
 const favouriteElement = document.querySelector(".container__favorites-list");
 const paintFavoriteShows = () => {
   let favoriteHtmlCode = "";
-  for (const show of shows) {
-    htmlCode += `<ul>`;
-    htmlCode += `<li id="${show.id}">`;
-    htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
-    htmlCode += `<h3>${show.name}</h3>`;
-    htmlCode += `</li>`;
-    htmlCode += `</ul>`;
+  favoriteHtmlCode += `<h2>Mis series favoritas</h2>`;
+  for (const show of favoritesShows) {
+    favoriteHtmlCode += `<ul>`;
+    favoriteHtmlCode += `<li id="${show.id}">`;
+    favoriteHtmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="image-style">`;
+    favoriteHtmlCode += `<h3>${show.name}</h3>`;
+    favoriteHtmlCode += `</li>`;
+    favoriteHtmlCode += `</ul>`;
   }
   favouriteElement.innerHTML = favoriteHtmlCode;
 };
 
-// function setInLocalStorage() {}
-// function getFromLocalStorage() {}
+// localstorage
+const setInLocalStorage = () => {
+  const showFavInString = JSON.stringify(favoritesShows);
+  localStorage.setItem("favorite show", showFavInString);
+};
+
+const getFromLocalStorage = () => {
+  const showFavInString = localStorage.getItem("favorite show");
+  if (showFavInString !== null) {
+    favoritesShows = JSON.parse(showFavInString);
+    paintFavoriteShows();
+  }
+};
+
+// arrancar página
+listenSearchBtn();
+getFromLocalStorage();

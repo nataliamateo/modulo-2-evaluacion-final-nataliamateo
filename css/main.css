@@ -16,6 +16,7 @@
 .container__shows-show {
   background-color: rgb(102, 153, 211);
   width: 140px;
+  height: 250px;
   text-align: center;
   cursor: pointer;
 }
