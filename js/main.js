@@ -15,6 +15,7 @@ function getDataApi() {
   fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
     .then(response => response.json())
     .then(serverData => {
+      shows = [];
       /* necesito recorrer el array de 10 objetos que devuelve el servidor para acceder 
       a los datos que necesito. Como devuelve 10 objetos tengo que crear 1 con las propiedades que quiero que muestre */
       for (const show of serverData) {
@@ -159,5 +160,6 @@ const getFromLocalStorage = () => {
 };
 
 // arrancar página
-listenSearchBtn();
+
 getFromLocalStorage();
+listenSearchBtn();
