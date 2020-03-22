@@ -44,6 +44,7 @@
   padding: 10px 20px 10px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 40px;
   border-right: 1px solid black;
 }
 .container__favorites--title {
@@ -93,7 +94,7 @@
   row-gap: 20px;
 }
 .container__shows__show {
-  margin: 20px 0;
+  margin: 20px 10px;
   background-color: rgb(102, 153, 211);
   width: 140px;
   height: 220px;
