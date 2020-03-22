@@ -39,12 +39,7 @@ const showsElement = document.querySelector(".js-container-allshows");
 const paintShows = () => {
   let htmlCode = "";
   for (const show of shows) {
-    // if (true) {
-    //   htmlCode += `<div class=""js-container-show container__shows-show container__shows-show--favorite" id="${show.id}">`;
-    // } else {
-    //   htmlCode += `<div class=""js-container-show container__shows-show" id="${show.id}">`;
-    // }
-    htmlCode += `<div class="js-container-show container__shows__show " id="${show.id}">`;
+    htmlCode += `<div class="js-container-show container__shows__show" id="${show.id}">`;
     htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="container__shows__show--image-style">`;
     htmlCode += `<h3 class="container__shows__show--title">${show.name}</h3>`;
     htmlCode += `</div>`;
@@ -57,6 +52,8 @@ const paintShows = () => {
 function favouriteList(ev) {
   // guardar el valor del id en una constante
   const clickedId = parseInt(ev.currentTarget.id);
+  console.log(ev.currentTarget);
+
   // buscar en la lista de favoritos comparando ids
   let foundFavShow = undefined;
   for (const favoritesShow of favoritesShows) {
@@ -70,6 +67,7 @@ function favouriteList(ev) {
     let foundShow = shows.find(show => show.id === clickedId);
     // añadirlo a la array de favoritos
     // como queremos añadir todos los datos no necesitamos crear un nuevo objeto definido
+    ev.currentTarget.classList.add("fav");
     favoritesShows.push(foundShow);
   } else {
     // como quiero eliminar una serie necesito saber que posición ocupa en la lista teniendo en cuenta el id.
@@ -80,6 +78,7 @@ function favouriteList(ev) {
       }
     }
     favoritesShows.splice(indexShowToDelete, 1);
+    ev.currentTarget.classList.remove("fav");
   }
   setInLocalStorage();
   paintFavoriteShows();
@@ -97,16 +96,52 @@ const listenClickFavShow = () => {
 const favouriteElement = document.querySelector(".container__favorites");
 const paintFavoriteShows = () => {
   let favoriteHtmlCode = "";
-  favoriteHtmlCode += `<h2 class="container__favorites--title">Mis series favoritas</h2>`;
+  favoriteHtmlCode += `<h2 class="container__favorites--title">Mis series favoritas </h2>`;
   for (const show of favoritesShows) {
     favoriteHtmlCode += `<ul class="container__favorites--shows">`;
     favoriteHtmlCode += `<li class="list-style" id="${show.id}">`;
     favoriteHtmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="list-style__image">`;
     favoriteHtmlCode += `<h3 class="list-style__title">${show.name}</h3>`;
+    favoriteHtmlCode += `<button class="js-remove-btn list-style__btn" id="${show.id}" > X </button>`;
     favoriteHtmlCode += `</li>`;
     favoriteHtmlCode += `</ul>`;
   }
   favouriteElement.innerHTML = favoriteHtmlCode;
+  listenRemoveFavBtn();
+};
+
+// BOTÓN X
+
+const removeShows = ev => {
+  const clickedId = parseInt(ev.currentTarget.id);
+  // buscar en la lista de favoritos la serie clickada
+  let foundFavShow = undefined;
+  for (const favoritesShow of favoritesShows) {
+    if (favoritesShow.id === clickedId) {
+      foundFavShow = favoritesShow;
+    }
+  }
+  // Elimino el producto
+  if (foundFavShow.id === clickedId) {
+    let indexShowToDelete = 0;
+    for (let i = 0; i < favoritesShows.length; i++) {
+      if (favoritesShows[i].id === clickedId) {
+        indexShowToDelete = i;
+      }
+    }
+    favoritesShows.splice(indexShowToDelete, 1);
+    ev.currentTarget.classList.remove("fav");
+  }
+  paintFavoriteShows();
+  setInLocalStorage();
+};
+
+// listener sobre todos los botones X de favs
+const listenRemoveFavBtn = () => {
+  const removeFavBtns = document.querySelectorAll(".js-remove-btn");
+  for (const removeFavBtn of removeFavBtns) {
+    removeFavBtn.addEventListener("click", removeShows);
+  }
 };
 
 // localstorage
