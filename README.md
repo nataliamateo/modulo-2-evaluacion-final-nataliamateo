@@ -7,6 +7,7 @@ Para realizar el proyecto hemos empleado Html, Css y Javascript.
 ### Requisitos
 
 Tener instalado git.
+
 Tener un editor de código.
 
 ### Iniciar el proyecto
