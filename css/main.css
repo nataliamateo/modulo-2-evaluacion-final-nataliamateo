@@ -97,7 +97,7 @@
   margin: 20px 10px;
   background-color: rgb(102, 153, 211);
   width: 140px;
-  height: 220px;
+  height: 260px;
   text-align: center;
   cursor: pointer;
   border-radius: 10px;
@@ -108,7 +108,7 @@
   padding-top: 10px;
 }
 .container__shows__show--title {
-  padding-top: 15px;
+  padding: 15px 5px 0 5px;
 }
 
 .fav {

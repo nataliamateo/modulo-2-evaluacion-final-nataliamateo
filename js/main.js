@@ -51,10 +51,7 @@ const paintShows = () => {
 
 // AÑADIR A FAVORITOS
 function favouriteList(ev) {
-  // guardar el valor del id en una constante
   const clickedId = parseInt(ev.currentTarget.id);
-  console.log(ev.currentTarget);
-
   // buscar en la lista de favoritos comparando ids
   let foundFavShow = undefined;
   for (const favoritesShow of favoritesShows) {
@@ -114,16 +111,14 @@ const paintFavoriteShows = () => {
 // BOTÓN X
 
 const removeShows = ev => {
+  debugger;
   const clickedId = parseInt(ev.currentTarget.id);
-  // buscar en la lista de favoritos la serie clickada
   let foundFavShow = undefined;
   for (const favoritesShow of favoritesShows) {
     if (favoritesShow.id === clickedId) {
       foundFavShow = favoritesShow;
-      ev.currentTarget.classList.add("fav");
     }
   }
-  // Elimino el producto
   if (foundFavShow.id === clickedId) {
     let indexShowToDelete = 0;
     for (let i = 0; i < favoritesShows.length; i++) {
@@ -132,11 +127,23 @@ const removeShows = ev => {
       }
     }
     favoritesShows.splice(indexShowToDelete, 1);
-    ev.currentTarget.classList.remove("fav");
   }
+
+  console.log(shows, favoritesShows);
+
   paintShows();
   paintFavoriteShows();
   setInLocalStorage();
+};
+
+const removeClassFav = ev => {
+  const clickedId = parseInt(ev.currentTarget.id);
+  let foundShows = undefined;
+  for (const show of shows) {
+    if (show.id === clickedId) {
+      foundShows = show;
+    }
+  }
 };
 
 // listener sobre todos los botones X de favs
