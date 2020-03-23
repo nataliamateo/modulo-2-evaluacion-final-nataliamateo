@@ -120,6 +120,7 @@ const removeShows = ev => {
   for (const favoritesShow of favoritesShows) {
     if (favoritesShow.id === clickedId) {
       foundFavShow = favoritesShow;
+      ev.currentTarget.classList.add("fav");
     }
   }
   // Elimino el producto
@@ -133,6 +134,7 @@ const removeShows = ev => {
     favoritesShows.splice(indexShowToDelete, 1);
     ev.currentTarget.classList.remove("fav");
   }
+  paintShows();
   paintFavoriteShows();
   setInLocalStorage();
 };
