@@ -10,14 +10,13 @@ const listenSearchBtn = () => {
 };
 
 //DATOS DE LA API CON EL VALOR DEL INPUT
-function getDataApi() {
+function getDataApi(ev) {
+  ev.preventDefault();
   const inputValue = document.querySelector(".js-input").value;
   fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
     .then(response => response.json())
     .then(serverData => {
       shows = [];
-      /* necesito recorrer el array de 10 objetos que devuelve el servidor para acceder 
-      a los datos que necesito. Como devuelve 10 objetos tengo que crear 1 con las propiedades que quiero que muestre */
       for (const show of serverData) {
         const filmsDataObject = {
           id: show.show.id,
@@ -40,7 +39,12 @@ const showsElement = document.querySelector(".js-container-allshows");
 const paintShows = () => {
   let htmlCode = "";
   for (const show of shows) {
-    htmlCode += `<div class="js-container-show container__shows__show" id="${show.id}">`;
+    const isFav = favoritesShows.find(favShow => favShow.id === show.id);
+    if (isFav !== undefined) {
+      htmlCode += `<div class="js-container-show container__shows__show is-fav" id="${show.id}">`;
+    } else {
+      htmlCode += `<div class="js-container-show container__shows__show" id="${show.id}">`;
+    }
     htmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="container__shows__show--image-style">`;
     htmlCode += `<h3 class="container__shows__show--title">${show.name}</h3>`;
     htmlCode += `</div>`;
@@ -64,8 +68,7 @@ function favouriteList(ev) {
     // encontrar el elemento clickado y si es el mismo lo mete en la variable, para ello comparamos el atributo id que es hijo directo de la array shows
     let foundShow = shows.find(show => show.id === clickedId);
     // añadirlo a la array de favoritos
-    // como queremos añadir todos los datos no necesitamos crear un nuevo objeto definido
-    ev.currentTarget.classList.add("fav");
+    ev.currentTarget.classList.add("is-fav");
     favoritesShows.push(foundShow);
   } else {
     // como quiero eliminar una serie necesito saber que posición ocupa en la lista teniendo en cuenta el id.
@@ -76,7 +79,7 @@ function favouriteList(ev) {
       }
     }
     favoritesShows.splice(indexShowToDelete, 1);
-    ev.currentTarget.classList.remove("fav");
+    ev.currentTarget.classList.remove("is-fav");
   }
   setInLocalStorage();
   paintFavoriteShows();
@@ -111,7 +114,6 @@ const paintFavoriteShows = () => {
 // BOTÓN X
 
 const removeShows = ev => {
-  debugger;
   const clickedId = parseInt(ev.currentTarget.id);
   let foundFavShow = undefined;
   for (const favoritesShow of favoritesShows) {
@@ -128,22 +130,9 @@ const removeShows = ev => {
     }
     favoritesShows.splice(indexShowToDelete, 1);
   }
-
-  console.log(shows, favoritesShows);
-
   paintShows();
   paintFavoriteShows();
   setInLocalStorage();
-};
-
-const removeClassFav = ev => {
-  const clickedId = parseInt(ev.currentTarget.id);
-  let foundShows = undefined;
-  for (const show of shows) {
-    if (show.id === clickedId) {
-      foundShows = show;
-    }
-  }
 };
 
 // listener sobre todos los botones X de favs
