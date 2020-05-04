@@ -16,7 +16,7 @@
   font-size: 50px;
   color: rgb(255, 255, 255);
   text-align: center;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .header__input {
   margin-left: 50px;
@@ -41,14 +41,16 @@
 }
 .container__favorites {
   width: 30%;
-  padding: 10px 20px 10px 20px;
+  padding-left: 3rem;
+  padding-right: 3rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 40px;
   border-right: 1px solid black;
+  height: 30px;
 }
 .container__favorites--title {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: center;
   grid-column: 1 / 3;
 }
@@ -73,7 +75,7 @@
   width: 100px;
 }
 .list-style__title {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   padding-top: 10px;
 }
 .list-style__btn {
@@ -88,7 +90,7 @@
 }
 .container__shows {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 70%;
   justify-items: center;
   row-gap: 20px;

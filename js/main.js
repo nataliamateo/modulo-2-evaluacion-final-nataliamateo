@@ -14,14 +14,14 @@ function getDataApi(ev) {
   ev.preventDefault();
   const inputValue = document.querySelector(".js-input").value;
   fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
-    .then(response => response.json())
-    .then(serverData => {
+    .then((response) => response.json())
+    .then((serverData) => {
       shows = [];
       for (const show of serverData) {
         const filmsDataObject = {
           id: show.show.id,
           name: show.show.name,
-          image: show.show.image
+          image: show.show.image,
         };
         if (show.show.image === null) {
           filmsDataObject.image = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV";
@@ -39,7 +39,7 @@ const showsElement = document.querySelector(".js-container-allshows");
 const paintShows = () => {
   let htmlCode = "";
   for (const show of shows) {
-    const isFav = favoritesShows.find(favShow => favShow.id === show.id);
+    const isFav = favoritesShows.find((favShow) => favShow.id === show.id);
     if (isFav !== undefined) {
       htmlCode += `<div class="js-container-show container__shows__show is-fav" id="${show.id}">`;
     } else {
@@ -66,7 +66,7 @@ function favouriteList(ev) {
   // si la serie es undefined porque no esta en la lista me lo añades
   if (foundFavShow === undefined) {
     // encontrar el elemento clickado y si es el mismo lo mete en la variable, para ello comparamos el atributo id que es hijo directo de la array shows
-    let foundShow = shows.find(show => show.id === clickedId);
+    let foundShow = shows.find((show) => show.id === clickedId);
     // añadirlo a la array de favoritos
     ev.currentTarget.classList.add("is-fav");
     favoritesShows.push(foundShow);
@@ -113,7 +113,7 @@ const paintFavoriteShows = () => {
 
 // BOTÓN X
 
-const removeShows = ev => {
+const removeShows = (ev) => {
   const clickedId = parseInt(ev.currentTarget.id);
   let foundFavShow = undefined;
   for (const favoritesShow of favoritesShows) {
@@ -121,15 +121,16 @@ const removeShows = ev => {
       foundFavShow = favoritesShow;
     }
   }
-  if (foundFavShow.id === clickedId) {
-    let indexShowToDelete = 0;
-    for (let i = 0; i < favoritesShows.length; i++) {
-      if (favoritesShows[i].id === clickedId) {
-        indexShowToDelete = i;
-      }
+  // no hace falta este id porque es true por defecto
+  // if (foundFavShow.id === clickedId) {
+  let indexShowToDelete = 0;
+  for (let i = 0; i < favoritesShows.length; i++) {
+    if (favoritesShows[i].id === clickedId) {
+      indexShowToDelete = i;
     }
-    favoritesShows.splice(indexShowToDelete, 1);
   }
+  favoritesShows.splice(indexShowToDelete, 1);
+
   paintShows();
   paintFavoriteShows();
   setInLocalStorage();
