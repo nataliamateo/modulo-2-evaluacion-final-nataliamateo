@@ -17,3 +17,4 @@ Para poder utilizar o colaborar en el proyecto:
  - Descargar o clonar el repositorio
  
 
+Actualmente el ejercicio no es responsive*
