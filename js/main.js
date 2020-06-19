@@ -12,6 +12,7 @@ const listenSearchBtn = () => {
 //DATOS DE LA API CON EL VALOR DEL INPUT
 function getDataApi(ev) {
   ev.preventDefault();
+
   const inputValue = document.querySelector('.js-input').value;
   fetch(`https://api.tvmaze.com/search/shows?q=${inputValue}`)
     .then((response) => response.json())
