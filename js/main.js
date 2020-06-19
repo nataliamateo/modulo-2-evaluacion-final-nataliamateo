@@ -1,19 +1,19 @@
-"use strict";
+'use strict';
 
 let shows = [];
 let favoritesShows = [];
 
 // Función que escucha el botón Search
 const listenSearchBtn = () => {
-  const btn = document.querySelector(".js-button");
-  btn.addEventListener("click", getDataApi);
+  const btn = document.querySelector('.js-button');
+  btn.addEventListener('click', getDataApi);
 };
 
 //DATOS DE LA API CON EL VALOR DEL INPUT
 function getDataApi(ev) {
   ev.preventDefault();
-  const inputValue = document.querySelector(".js-input").value;
-  fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
+  const inputValue = document.querySelector('.js-input').value;
+  fetch(`https://api.tvmaze.com/search/shows?q=${inputValue}`)
     .then((response) => response.json())
     .then((serverData) => {
       shows = [];
@@ -24,7 +24,7 @@ function getDataApi(ev) {
           image: show.show.image,
         };
         if (show.show.image === null) {
-          filmsDataObject.image = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV";
+          filmsDataObject.image = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
         } else {
           filmsDataObject.image = show.show.image.medium;
         }
@@ -35,9 +35,9 @@ function getDataApi(ev) {
 }
 
 // PINTAR LA LISTA DE LAS SERIE
-const showsElement = document.querySelector(".js-container-allshows");
+const showsElement = document.querySelector('.js-container-allshows');
 const paintShows = () => {
-  let htmlCode = "";
+  let htmlCode = '';
   for (const show of shows) {
     const isFav = favoritesShows.find((favShow) => favShow.id === show.id);
     if (isFav !== undefined) {
@@ -68,7 +68,7 @@ function favouriteList(ev) {
     // encontrar el elemento clickado y si es el mismo lo mete en la variable, para ello comparamos el atributo id que es hijo directo de la array shows
     let foundShow = shows.find((show) => show.id === clickedId);
     // añadirlo a la array de favoritos
-    ev.currentTarget.classList.add("is-fav");
+    ev.currentTarget.classList.add('is-fav');
     favoritesShows.push(foundShow);
   } else {
     // como quiero eliminar una serie necesito saber que posición ocupa en la lista teniendo en cuenta el id.
@@ -79,7 +79,7 @@ function favouriteList(ev) {
       }
     }
     favoritesShows.splice(indexShowToDelete, 1);
-    ev.currentTarget.classList.remove("is-fav");
+    ev.currentTarget.classList.remove('is-fav');
   }
   setInLocalStorage();
   paintFavoriteShows();
@@ -87,16 +87,16 @@ function favouriteList(ev) {
 
 // ESCUCHAR EL CLICK DEL DIV DEL SHOW
 const listenClickFavShow = () => {
-  const showsItems = document.querySelectorAll(".js-container-show");
+  const showsItems = document.querySelectorAll('.js-container-show');
   for (const showsItem of showsItems) {
-    showsItem.addEventListener("click", favouriteList);
+    showsItem.addEventListener('click', favouriteList);
   }
 };
 
 //PINTAR LA LISTA DE FAVORITOS
-const favouriteElement = document.querySelector(".container__favorites");
+const favouriteElement = document.querySelector('.container__favorites');
 const paintFavoriteShows = () => {
-  let favoriteHtmlCode = "";
+  let favoriteHtmlCode = '';
   favoriteHtmlCode += `<h2 class="container__favorites--title">Mis series favoritas </h2>`;
   for (const show of favoritesShows) {
     favoriteHtmlCode += `<ul class="container__favorites--shows">`;
@@ -138,20 +138,20 @@ const removeShows = (ev) => {
 
 // listener sobre todos los botones X de favs
 const listenRemoveFavBtn = () => {
-  const removeFavBtns = document.querySelectorAll(".js-remove-btn");
+  const removeFavBtns = document.querySelectorAll('.js-remove-btn');
   for (const removeFavBtn of removeFavBtns) {
-    removeFavBtn.addEventListener("click", removeShows);
+    removeFavBtn.addEventListener('click', removeShows);
   }
 };
 
 // localstorage
 const setInLocalStorage = () => {
   const showFavInString = JSON.stringify(favoritesShows);
-  localStorage.setItem("favorite show", showFavInString);
+  localStorage.setItem('favorite show', showFavInString);
 };
 
 const getFromLocalStorage = () => {
-  const showFavInString = localStorage.getItem("favorite show");
+  const showFavInString = localStorage.getItem('favorite show');
   if (showFavInString !== null) {
     favoritesShows = JSON.parse(showFavInString);
     paintFavoriteShows();
