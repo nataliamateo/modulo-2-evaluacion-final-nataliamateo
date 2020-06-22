@@ -26,3 +26,6 @@ Para poder utilizar o colaborar en el proyecto:
  ![Series](/images/series1.png)
 
 Actualmente el ejercicio no es responsive*
+
+Creado
+⌨️ con ❤️ por Natalia Mateo.
