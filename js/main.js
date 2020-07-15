@@ -104,7 +104,7 @@ const paintFavoriteShows = () => {
     favoriteHtmlCode += `<li class="list-style" id="${show.id}">`;
     favoriteHtmlCode += `<img src="${show.image}" alt="Serie: ${show.name}" class="list-style__image">`;
     favoriteHtmlCode += `<h3 class="list-style__title">${show.name}</h3>`;
-    favoriteHtmlCode += `<button class="js-remove-btn list-style__btn" id="${show.id}" > X </button>`;
+    favoriteHtmlCode += `<button class="js-remove-btn list-style__btn" id="${show.id}" > <i class="far fa-trash-alt"></i></button>`;
     favoriteHtmlCode += `</li>`;
     favoriteHtmlCode += `</ul>`;
   }
