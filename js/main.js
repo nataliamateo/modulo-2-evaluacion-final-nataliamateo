@@ -99,6 +99,7 @@ const favouriteElement = document.querySelector('.container__favorites');
 const paintFavoriteShows = () => {
   let favoriteHtmlCode = '';
   favoriteHtmlCode += `<h2 class="container__favorites--title">Mis series favoritas </h2>`;
+
   for (const show of favoritesShows) {
     favoriteHtmlCode += `<ul class="container__favorites--shows">`;
     favoriteHtmlCode += `<li class="list-style" id="${show.id}">`;
@@ -108,7 +109,9 @@ const paintFavoriteShows = () => {
     favoriteHtmlCode += `</li>`;
     favoriteHtmlCode += `</ul>`;
   }
+  favoriteHtmlCode += `<button class="js-removesfavs"> Eliminar lista </button>`;
   favouriteElement.innerHTML = favoriteHtmlCode;
+  removeAllFavs();
   listenRemoveFavBtn();
 };
 
@@ -135,6 +138,23 @@ const removeShows = (ev) => {
   paintShows();
   paintFavoriteShows();
   setInLocalStorage();
+};
+
+// ELIMINAR TODOS LOS FAVORITOS
+
+const clearFavourites = () => {
+  for (let index = 0; index < favoritesShows.length; index++) {
+    favoritesShows.splice(favoritesShows[index], favoritesShows.length);
+  }
+
+  paintShows();
+  paintFavoriteShows();
+  setInLocalStorage();
+};
+
+const removeAllFavs = () => {
+  const clearFavs = document.querySelector('.js-removesfavs');
+  clearFavs.addEventListener('click', clearFavourites);
 };
 
 // listener sobre todos los botones X de favs
