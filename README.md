@@ -17,6 +17,8 @@ Tener un editor de código.
 Para poder utilizar o colaborar en el proyecto:
 
  - Descargar o clonar el repositorio con `git clone´
+ - Instalar las dependencias con npm install
+ - Para visualizar la página al momento necesitarás tener la extensión Go Live
  
  ### Resultado
  
